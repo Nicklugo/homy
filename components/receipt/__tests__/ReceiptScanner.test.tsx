@@ -40,7 +40,7 @@ describe('ReceiptScanner', () => {
   });
 
   it('handles image picking successfully', async () => {
-    const { rerender } = render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
+    render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
 
     await act(async () => {
       await ImagePicker.launchImageLibraryAsync({
@@ -60,7 +60,7 @@ describe('ReceiptScanner', () => {
   it('handles image picking error', async () => {
     (processReceipt as jest.Mock).mockRejectedValue(new Error('Processing failed'));
 
-    const { rerender } = render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
+    render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
 
     await act(async () => {
       await ImagePicker.launchImageLibraryAsync({
@@ -82,7 +82,7 @@ describe('ReceiptScanner', () => {
   });
 
   it('handles camera capture with permission granted', async () => {
-    const { rerender } = render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
+    render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
 
     await act(async () => {
       await ImagePicker.requestCameraPermissionsAsync();
@@ -108,7 +108,7 @@ describe('ReceiptScanner', () => {
       status: 'denied',
     });
 
-    const { rerender } = render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
+    render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
 
     await act(async () => {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -119,7 +119,7 @@ describe('ReceiptScanner', () => {
   it('handles camera capture error', async () => {
     (ImagePicker.launchCameraAsync as jest.Mock).mockRejectedValue(new Error('Camera error'));
 
-    const { rerender } = render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
+    render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
 
     await act(async () => {
       await ImagePicker.requestCameraPermissionsAsync();
@@ -140,10 +140,10 @@ describe('ReceiptScanner', () => {
   });
 
   it('handles voice input', async () => {
-    const { rerender } = render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
+    render(<ReceiptScanner onScanComplete={mockOnScanComplete} />);
 
-    // Directly call the onItemRecognized callback from VoiceInput mock
-    const VoiceInputMock = require('../VoiceInput').VoiceInput;
+    // Import VoiceInput mock directly
+    const { VoiceInput: VoiceInputMock } = jest.requireActual('../VoiceInput');
     VoiceInputMock({ 
       onItemRecognized: (item: { name: string; price?: number }) => {
         mockOnScanComplete({ items: [item] });

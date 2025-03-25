@@ -22,24 +22,20 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({ onItemRecognized, onErro
         (result) => {
           const item = createSpokenItem(result.text);
           onItemRecognized(item);
-        },
-        (error) => {
-          setIsListening(false);
-          onError(error);
         }
       );
       setIsListening(true);
-    } catch (error) {
+    } catch (err) {
       setIsListening(false);
-      onError('Failed to start voice recognition');
+      onError(err instanceof Error ? err.message : 'Failed to start voice recognition');
     }
   }, [speechRecognizer, onItemRecognized, onError]);
 
   const handleStopListening = useCallback(async () => {
     try {
       await speechRecognizer.stop();
-    } catch (error) {
-      onError('Failed to stop voice recognition');
+    } catch (err) {
+      onError(err instanceof Error ? err.message : 'Failed to stop voice recognition');
     } finally {
       setIsListening(false);
     }
@@ -83,7 +79,7 @@ export const VoiceInput: React.FC<VoiceInputProps> = ({ onItemRecognized, onErro
       </TouchableOpacity>
       {isListening && (
         <Text style={styles.helpText}>
-          Speak your item (e.g., "Milk $3.99")
+          Speak your item (e.g., &quot;Milk $3.99&quot;)
         </Text>
       )}
     </View>

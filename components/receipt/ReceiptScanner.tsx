@@ -135,6 +135,7 @@ export const ReceiptScanner: React.FC<ReceiptScannerProps> = ({ onScanComplete }
         <Image
           source={{ uri: image }}
           style={{ width: '100%', height: 200, resizeMode: 'contain', marginTop: 16 }}
+          alt="Scanned receipt preview"
         />
       )}
 
