@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color Scheme */
+  --navy-dark: #1a2942;
+  --navy-main: #234166;
+  --navy-light: #2d5285;
+  --tan-dark: #b68d5f;
+  --tan-main: #d4b08c;
+  --tan-light: #e9d4bc;
+  --text-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --border-color: #e0d5c7;
+  
+  /* Gradients */
+  --primary-gradient: linear-gradient(135deg, var(--navy-main) 0%, var(--navy-dark) 100%);
+  --background-gradient: linear-gradient(135deg, #ffffff 0%, var(--tan-light) 15%);
+  --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
+  --glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.8) 100%);
+  --accent-gradient: linear-gradient(135deg, var(--tan-main) 0%, var(--tan-dark) 100%);
+}
+
+/* Spotlight Effect */
+.cursor-spotlight {
+  pointer-events: none;
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.175) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.0375) 40%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: opacity 0.15s ease;
+  mix-blend-mode: overlay;
+  filter: brightness(1.2);
+}
+
+/* Glass Effect */
+.glass-card {
+  background: var(--glass-gradient);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced Card Styles */
+.enhanced-card {
+  background: var(--card-gradient);
+  border-radius: 12px;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.enhanced-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 12px rgba(0, 0, 0, 0.05),
+    0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+.gradient-btn {
+  background: var(--primary-gradient);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.gradient-btn:hover::before {
+  left: 100%;
+}
+
+/* Navigation Enhancement */
+.nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+} 

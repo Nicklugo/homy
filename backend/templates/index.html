@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMY - Your AI Household Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cursor.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="chat-container">
+            <header class="chat-header">
+                <div class="brand">
+                    <h1>HOMY</h1>
+                    <span>Your AI Household Manager</span>
+                </div>
+            </header>
+
+            <!-- Mode Toggle -->
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="chat">Chat Mode</button>
+                <button class="mode-btn" data-mode="agent">Agent Mode</button>
+            </div>
+
+            <!-- Welcome Message -->
+            <div class="welcome-message">
+                <h2 class="welcome-header">Welcome to HOMY</h2>
+                <p class="welcome-subheader">Your AI-powered household management assistant</p>
+                <div class="butler-capabilities">
+                    <div class="capability" id="inventory-capability">
+                        <i class="fas fa-box capability-icon"></i>
+                        <div class="capability-title">Inventory</div>
+                        <div class="capability-description">Manage your household items</div>
+                    </div>
+                    <div class="capability" id="budget-capability">
+                        <i class="fas fa-wallet capability-icon"></i>
+                        <div class="capability-title">Budget</div>
+                        <div class="capability-description">Track expenses and savings</div>
+                    </div>
+                    <div class="capability" id="recipes-capability">
+                        <i class="fas fa-utensils capability-icon"></i>
+                        <div class="capability-title">Recipes</div>
+                        <div class="capability-description">Access recipe database</div>
+                    </div>
+                    <div class="capability" id="web-capability">
+                        <i class="fas fa-globe capability-icon"></i>
+                        <div class="capability-title">Web Search</div>
+                        <div class="capability-description">Find household tips</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Container -->
+            <div class="messages-container">
+                <div class="chat-messages"></div>
+            </div>
+
+            <!-- Chat Form -->
+            <form class="chat-form">
+                <!-- Context Tools -->
+                <div class="context-tools">
+                    <button type="button" class="context-btn" id="inventoryContextBtn">
+                        <i class="fas fa-box context-icon"></i>
+                        @Inventory
+                    </button>
+                    <button type="button" class="context-btn" id="budgetContextBtn">
+                        <i class="fas fa-wallet context-icon"></i>
+                        @Budget
+                    </button>
+                    <button type="button" class="context-btn" id="recipesContextBtn">
+                        <i class="fas fa-utensils context-icon"></i>
+                        @Recipes
+                    </button>
+                    <button type="button" class="context-btn" id="webContextBtn">
+                        <i class="fas fa-globe context-icon"></i>
+                        @web
+                    </button>
+                </div>
+
+                <!-- Interaction Modes -->
+                <div class="interaction-modes">
+                    <button type="button" class="mode-btn" data-interaction="question">Question Mode</button>
+                    <button type="button" class="mode-btn" data-interaction="management">Management Mode</button>
+                    <button type="button" class="mode-btn" data-interaction="planning">Planning Mode</button>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea id="user-input" placeholder="Ask HOMY anything..." rows="1"></textarea>
+                        <div class="input-actions">
+                            <button type="button" class="upload-btn" id="upload-btn">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <button type="submit" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <a href="/home" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                My Home
+            </a>
+            <a href="/chat" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                HOMY
+            </a>
+            <a href="/marketplace" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                Marketplace
+            </a>
+            <a href="/orders" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Orders
+            </a>
+        </nav>
+    </div>
+
+    <!-- Modal Templates -->
+    <div class="modal-container" id="context-modal">
+        <div class="modal-view">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Context</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="context-options">
+                    <div class="context-option" data-type="inventory">
+                        <i class="fas fa-box option-icon"></i>
+                        <div class="option-text">Inventory Status</div>
+                    </div>
+                    <div class="context-option" data-type="budget">
+                        <i class="fas fa-wallet option-icon"></i>
+                        <div class="option-text">Budget Information</div>
+                    </div>
+                    <div class="context-option" data-type="recipes">
+                        <i class="fas fa-utensils option-icon"></i>
+                        <div class="option-text">Recipe Database</div>
+                    </div>
+                    <div class="context-option" data-type="web">
+                        <i class="fas fa-globe option-icon"></i>
+                        <div class="option-text">Web Search</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="secondary-btn close-modal">Cancel</button>
+                <button class="primary-btn">Add Context</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/cursor.js') }}"></script>
+</body>
+</html> 

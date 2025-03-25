@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMY - My Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>HOMY</h1>
+                <button class="new-chat-btn">New Chat</button>
+            </div>
+            <div class="chat-history">
+                <!-- Chat history will go here -->
+            </div>
+            <div class="sidebar-footer">
+                <button class="settings-btn">Settings</button>
+            </div>
+        </div>
+        <button class="toggle-sidebar">☰</button>
+
+        <!-- Main Content Area -->
+        <div class="home-container">
+            <header class="home-header">
+                <div class="brand">
+                    <h1>My Home</h1>
+                    <span>Dashboard</span>
+                </div>
+                <div class="user-profile">
+                    <img src="{{ url_for('static', filename='img/avatar-placeholder.png') }}" alt="User Avatar">
+                    <span>Welcome, User</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="dashboard-content">
+                <!-- Quick Stats Section -->
+                <section class="stats-section">
+                    <h2>Household Inventory Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🛒</div>
+                            <div class="stat-info">
+                                <h3>Shopping Status</h3>
+                                <p>5 items needed</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🍽️</div>
+                            <div class="stat-info">
+                                <h3>Pantry Status</h3>
+                                <p>0% stocked</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🧻</div>
+                            <div class="stat-info">
+                                <h3>Household Supplies</h3>
+                                <p>0% stocked</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-info">
+                                <h3>Monthly Budget</h3>
+                                <p>$320 remaining</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Unfiltered Items Section (New) -->
+                <section class="unfiltered-section">
+                    <h2>Recently Scanned Items</h2>
+                    <div class="unfiltered-items">
+                        <p class="empty-state">No unfiltered items. Scan a receipt to get started!</p>
+                        <!-- Unfiltered items will appear here after scanning -->
+                    </div>
+                </section>
+
+                <!-- Quick Actions Section (Updated to align with user flow) -->
+                <section class="actions-section">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <button class="action-btn" onclick="showReceiptInputView()">
+                            <span class="action-icon">📷</span>
+                            <span>Scan Receipt</span>
+                        </button>
+                        <button class="action-btn" onclick="showInventoryView()">
+                            <span class="action-icon">📦</span>
+                            <span>Inventory</span>
+                        </button>
+                        <button class="action-btn" onclick="showMealPlanningView()">
+                            <span class="action-icon">🍲</span>
+                            <span>Meal Planning</span>
+                        </button>
+                        <button class="action-btn" onclick="showMonthlyOrders()">
+                            <span class="action-icon">🛒</span>
+                            <span>Shopping List</span>
+                        </button>
+                        <button class="action-btn" onclick="showConsumptionTrackingView()">
+                            <span class="action-icon">📊</span>
+                            <span>Consumption</span>
+                        </button>
+                    </div>
+                    <!-- Bottom row for Budget, Subscriptions, and Trends -->
+                    <div class="actions-bottom">
+                        <button class="action-btn bottom-btn">
+                            <span class="action-icon">💵</span>
+                            <span>Budget</span>
+                        </button>
+                        <button class="action-btn bottom-btn">
+                            <span class="action-icon">🔄</span>
+                            <span>Subscriptions</span>
+                        </button>
+                        <button class="action-btn bottom-btn">
+                            <span class="action-icon">📈</span>
+                            <span>Trends</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Reminders Section (Changed from Shopping Reminders) -->
+                <section class="tasks-section">
+                    <div class="section-header">
+                        <h2>Reminders</h2>
+                        <button class="orders-btn" onclick="showMonthlyOrders()">
+                            <span class="order-icon">📦</span>
+                            <span>This Month's Order</span>
+                        </button>
+                    </div>
+                    <div class="tasks-list">
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-name">Scan your first grocery receipt</div>
+                                <div class="task-due">Get started</div>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-name">Add household supplies</div>
+                                <div class="task-due">Build inventory</div>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-name">Track your first takeout meal</div>
+                                <div class="task-due">Optional</div>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-name">Set up monthly subscriptions</div>
+                                <div class="task-due">For recurring items</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <a href="/home" class="nav-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    My Home
+                </a>
+                <a href="/chat" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    HOMY
+                </a>
+                <a href="/marketplace" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Marketplace
+                </a>
+                <a href="/orders" class="nav-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Orders
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+    <!-- Add this new section before the closing main tag -->
+    <!-- Modal Views -->
+    <div id="modalContainer" class="modal-container" style="display: none;">
+        <!-- Receipt Input View -->
+        <div id="receiptInputView" class="modal-view receipt-modal" style="display: none;">
+            <div class="modal-header">
+                <h2>Add Receipt</h2>
+                <button class="close-modal" onclick="closeModalView()">×</button>
+            </div>
+            <div class="receipt-tabs">
+                <button class="tab-btn active" data-tab="manual">Manual Entry</button>
+                <button class="tab-btn" data-tab="scan">Scan Receipt</button>
+                <button class="tab-btn" data-tab="takeout">Takeout Order</button>
+            </div>
+            
+            <div class="tab-content active" id="manual-tab">
+                <form id="manualReceiptForm">
+                    <div class="form-group">
+                        <label for="storeName">Store Name</label>
+                        <input type="text" id="storeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="purchaseDate">Purchase Date</label>
+                        <input type="date" id="purchaseDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalAmount">Total Amount</label>
+                        <input type="number" id="totalAmount" step="0.01" required>
+                    </div>
+                    
+                    <h3>Items</h3>
+                    <div id="receiptItems">
+                        <div class="receipt-item">
+                            <input type="text" placeholder="Item name" class="item-name" required>
+                            <input type="number" placeholder="Price" class="item-price" step="0.01" required>
+                            <select class="item-category">
+                                <option value="pantry">Pantry</option>
+                                <option value="household">Household</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <button type="button" class="remove-item">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addItemBtn" class="secondary-btn">+ Add Another Item</button>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Save Receipt</button>
+                        <button type="button" class="secondary-btn" onclick="closeModalView()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="scan-tab">
+                <div class="scan-placeholder">
+                    <i class="fas fa-camera"></i>
+                    <p>Receipt scanning feature coming soon!</p>
+                    <p class="scan-description">Take a photo of your receipt and we'll automatically extract the items and add them to your inventory.</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="takeout-tab">
+                <form id="takeoutForm">
+                    <div class="form-group">
+                        <label for="restaurantName">Restaurant Name</label>
+                        <input type="text" id="restaurantName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderDate">Order Date</label>
+                        <input type="date" id="orderDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderAmount">Total Amount</label>
+                        <input type="number" id="orderAmount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mealType">Meal Type</label>
+                        <select id="mealType">
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="snack">Snack</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderNotes">Notes</label>
+                        <textarea id="orderNotes" rows="3" placeholder="What did you order? Any special notes?"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Save Takeout Order</button>
+                        <button type="button" class="secondary-btn" onclick="closeModalView()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
