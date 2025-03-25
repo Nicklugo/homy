@@ -1,8 +1,3 @@
-const { withSentryConfig } = require('@sentry/nextjs');
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,10 +6,6 @@ const nextConfig = {
   // Enable image optimization
   images: {
     domains: ['your-image-domain.com'], // Add your image domains here
-  },
-  // Configure Sentry
-  sentry: {
-    hideSourceMaps: true,
   },
   // Optimize builds
   swcMinify: true,
@@ -47,22 +38,4 @@ const nextConfig = {
   },
 };
 
-// Wrap with bundle analyzer
-const configWithBundleAnalyzer = withBundleAnalyzer(nextConfig);
-
-// Export with Sentry configuration
-module.exports = withSentryConfig(
-  configWithBundleAnalyzer,
-  {
-    silent: true,
-    org: "your-org",
-    project: "your-project",
-  },
-  {
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    tunnelRoute: "/monitoring",
-    hideSourceMaps: true,
-    disableLogger: true,
-  }
-); 
+module.exports = nextConfig 
