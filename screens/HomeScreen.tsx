@@ -1,5 +1,5 @@
 import React from 'react';
-import ReceiptScanner from '../components/receipt/ReceiptScanner';
+import { ReceiptScanner } from '../components/receipt/ReceiptScanner';
 import { ProcessedReceipt } from '../utils/ocrProcessor';
 
 const HomeScreen: React.FC = () => {
