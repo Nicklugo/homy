@@ -2,6 +2,8 @@
 
 **Homy** is an intelligent household management and inventory tracking system that helps you manage your home inventory, track expenses, and get smart meal suggestions.
 
+** vibe coded **
+
 ## Features
 
 - 🏠 **Smart Inventory Management**: Track pantry items and household supplies
